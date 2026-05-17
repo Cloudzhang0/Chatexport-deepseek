@@ -183,7 +183,80 @@
     color: var(--text);
   }
 
-  /* Steps */
+  /* How to Use */
+  .how-to-use-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+
+  .how-to-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+
+  .how-to-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .how-to-card h3 .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .how-to-card ol {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  .how-to-card ol li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .how-to-card .tip {
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #92400e;
+  }
+
+  .screenshot-placeholder {
+    background: #e5e7eb;
+    border: 2px dashed #9ca3af;
+    border-radius: 8px;
+    padding: 32px 16px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+
+  .screenshot-placeholder img {
+    max-width: 100%;
+    border-radius: 6px;
+  }
+
+  /* Steps Timeline */
   .steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -292,6 +365,79 @@
   </div>
 
 </div>
+
+<!-- How to Use -->
+<section style="background:#fafafa;">
+  <div class="container">
+    <h2>📖 如何使用</h2>
+    <div class="how-to-use-grid">
+
+      <!-- 安装与使用 -->
+      <div class="how-to-card">
+        <h3><span class="step-num">1</span> 安装扩展</h3>
+        <ol>
+          <li>点击上方 <strong>"下载 Edge 扩展"</strong> 按钮</li>
+          <li>跳转到 Edge 扩展商店页面</li>
+          <li>点击右侧 <strong>"获取"</strong> → <strong>"添加扩展"</strong></li>
+          <li>安装完成后，浏览器右上角会出现扩展图标</li>
+        </ol>
+        <div class="tip">💡 安装后无需额外设置，打开 DeepSeek 即可使用</div>
+      </div>
+
+      <!-- 单轮导出 -->
+      <div class="how-to-card">
+        <h3><span class="step-num">2</span> 单轮导出</h3>
+        <ol>
+          <li>打开 <strong>DeepSeek 对话页面</strong></li>
+          <li>每条 AI 回答下方会自动出现导出按钮：<br><strong>Markdown / HTML / JSON / Word</strong></li>
+          <li>点击 <strong>"···"</strong> 更多按钮，可选择：<br><strong>PDF / PNG / TXT / ipynb</strong></li>
+          <li>点击对应按钮即可下载该轮对话</li>
+        </ol>
+        <div class="tip">💡 鼠标悬停按钮会显示格式说明</div>
+      </div>
+
+      <!-- 多轮导出 -->
+      <div class="how-to-card">
+        <h3><span class="step-num">3</span> 批量导出</h3>
+        <ol>
+          <li>点击页面<strong>右上角蓝色按钮</strong><br>"导出多轮对话"</li>
+          <li>弹出对话框，勾选需要导出的内容：<br>全部信息 / 仅提问 / 仅回答 / 仅思考</li>
+          <li>选择导出格式（八种任选）</li>
+          <li>点击 <strong>"确定导出"</strong> 即可下载整个话题</li>
+        </ol>
+        <div class="tip">💡 支持 100+ 轮超长会话完整导出</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Screenshots -->
+<section>
+  <div class="container">
+    <h2>📸 界面预览</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>单轮导出按钮</h3>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">每条 AI 回答下方自动显示导出按钮，点击即存</p>
+        <!-- 截图1：替换 src 为你的图片链接 -->
+        <img src="screenshots/screenshot1.png" alt="单轮导出按钮" style="max-width:100%;border-radius:8px;border:1px solid var(--border);" onerror="this.parentElement.innerHTML='<div class=\'screenshot-placeholder\'>📷 截图1：单轮导出按钮<br>（请替换为实际图片）</div>'">
+      </div>
+      <div class="feature-card">
+        <h3>悬停提示</h3>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">鼠标悬停按钮显示格式说明，清晰明了</p>
+        <!-- 截图2 -->
+        <img src="screenshots/screenshot2.png" alt="悬停提示" style="max-width:100%;border-radius:8px;border:1px solid var(--border);" onerror="this.parentElement.innerHTML='<div class=\'screenshot-placeholder\'>📷 截图2：Tooltip 悬停提示<br>（请替换为实际图片）</div>'">
+      </div>
+      <div class="feature-card">
+        <h3>批量导出对话框</h3>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">自由选择导出内容范围与格式</p>
+        <!-- 截图3 -->
+        <img src="screenshots/screenshot3.png" alt="批量导出对话框" style="max-width:100%;border-radius:8px;border:1px solid var(--border);" onerror="this.parentElement.innerHTML='<div class=\'screenshot-placeholder\'>📷 截图3：批量导出对话框<br>（请替换为实际图片）</div>'">
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Features -->
 <section style="background:#fafafa;">
