@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatExport for DeepSeek - 对话一键导出工具</title>
+<style>
+  :root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg: #ffffff;
+    --text: #1f2937;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    --card-bg: #f9fafb;
+    --success: #059669;
+    --warning: #d97706;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background: var(--bg);
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Header */
+  header {
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+
+  .logo {
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 24px;
+    letter-spacing: 2px;
+  }
+
+  header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #111827;
+  }
+
+  header p {
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .badge-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .badge {
+    background: #eef2ff;
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* Download Button */
+  .cta-section {
+    text-align: center;
+    margin: 40px 0 60px;
+  }
+
+  .btn-download {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 16px 48px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.3);
+  }
+
+  .btn-download:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.4);
+  }
+
+  .store-note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* Sections */
+  section {
+    padding: 60px 0;
+  }
+
+  section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #111827;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .feature-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    transition: all 0.2s;
+  }
+
+  .feature-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  .feature-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  /* Formats */
+  .formats-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .format-tag {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* Steps */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    counter-reset: step;
+  }
+
+  .step-item {
+    text-align: center;
+    position: relative;
+    counter-increment: step;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .step-item h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .step-item p {
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  /* Privacy */
+  .privacy-box {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+  }
+
+  .privacy-box h3 {
+    font-size: 20px;
+    color: var(--success);
+    margin-bottom: 12px;
+  }
+
+  .privacy-box p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  footer a {
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    header h1 { font-size: 26px; }
+    header p { font-size: 16px; }
+    .btn-download { padding: 14px 32px; font-size: 16px; }
+    section { padding: 40px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">DS</div>
+    <h1>ChatExport for DeepSeek</h1>
+    <p>在 DeepSeek 对话页面一键导出聊天记录，支持八种格式，完全本地处理，保护你的每一段对话。</p>
+    <div class="badge-group">
+      <span class="badge">🔒 数据不出浏览器</span>
+      <span class="badge">🎨 深色模式适配</span>
+      <span class="badge">🆓 完全免费</span>
+    </div>
+  </header>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <a href="https://microsoftedge.microsoft.com/addons/detail/chatexport-for-deepseek/medfgmlodggagkndinjbplkbapmollpl" class="btn-download" target="_blank" rel="noopener">
+      🚀 下载 Edge 扩展
+    </a>
+    <p class="store-note">已在 Microsoft Edge 扩展商店上架 · 一键安装 · 自动更新</p>
+  </div>
+
+</div>
+
+<!-- Features -->
+<section style="background:#fafafa;">
+  <div class="container">
+    <h2>✨ 为什么选择 ChatExport？</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📄</div>
+        <h3>八种导出格式</h3>
+        <p>支持 Markdown、HTML、JSON、Word、PDF、PNG、TXT、Jupyter Notebook，覆盖笔记、文档、数据科学全场景。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔢</div>
+        <h3>单轮 + 批量双模式</h3>
+        <p>每条消息下方即点即存；右上角一键导出整个话题，支持 100+ 轮超长会话完整导出。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎛️</div>
+        <h3>内容自由组合</h3>
+        <p>可选择导出全部信息、仅提问、仅回答、或仅思考过程，四种模式任意搭配。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>隐私安全</h3>
+        <p>所有操作完全在浏览器本地完成，不联网、不收集数据、不需要账号，你的对话只属于你自己。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>细节用心</h3>
+        <p>自动适配深色模式，文件名包含话题标题和时间戳，代码块、表格、数学公式完整保留。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>轻量无侵入</h3>
+        <p>最小权限设计，仅访问 DeepSeek 对话页面，不注入广告，不包含跟踪代码。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Formats -->
+<section>
+  <div class="container">
+    <h2>📦 支持的导出格式</h2>
+    <div class="formats-list">
+      <span class="format-tag">📝 Markdown</span>
+      <span class="format-tag">🌐 HTML</span>
+      <span class="format-tag">📊 JSON</span>
+      <span class="format-tag">📄 Word</span>
+      <span class="format-tag">📕 PDF</span>
+      <span class="format-tag">🖼️ PNG</span>
+      <span class="format-tag">📃 TXT</span>
+      <span class="format-tag">📓 Jupyter Notebook</span>
+    </div>
+  </div>
+</section>
+
+<!-- Steps -->
+<section style="background:#fafafa;">
+  <div class="container">
+    <h2>🚀 三步开始使用</h2>
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <h4>安装扩展</h4>
+        <p>从 Edge 扩展商店一键添加</p>
+      </div>
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <h4>打开 DeepSeek</h4>
+        <p>进入任意对话页面</p>
+      </div>
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <h4>点击导出</h4>
+        <p>选择格式，一键下载</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Privacy -->
+<section>
+  <div class="container">
+    <div class="privacy-box">
+      <h3>🔒 你的隐私，我们同样看重</h3>
+      <p>ChatExport 不收集任何对话内容、个人信息或使用行为数据。所有导出操作完全在浏览器本地执行，无需联网，无需登录。我们承诺：你的对话只属于你自己。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Again -->
+<div class="cta-section">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/chatexport-for-deepseek/medfgmlodggagkndinjbplkbapmollpl" class="btn-download" target="_blank" rel="noopener">
+    🚀 立即下载 Edge 扩展
+  </a>
+  <p class="store-note">版本 1.0.0 · 完全免费 · 持续更新</p>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <p>© 2026 <a href="https://chatexport.cn">ChatExport.cn</a> · 让每一段对话都值得保存</p>
+  </div>
+</footer>
+
+</body>
+</html>
